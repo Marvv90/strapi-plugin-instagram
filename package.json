@@ -1,0 +1,40 @@
+{
+  "name": "@webvibe-io/strapi-plugin-instagram",
+  "version": "1.2.5",
+  "description": "Instagram plugin for Strapi headless CMS",
+  "keywords": [
+    "strapi",
+    "instagram",
+    "plugin"
+  ],
+  "strapi": {
+    "name": "instagram",
+    "description": "Instagram plugin for Strapi headless CMS",
+    "kind": "plugin",
+    "displayName": "Instagram"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/webvibe-io/strapi-plugin-instagram.git"
+  },
+  "peerDependencies": {
+    "@strapi/strapi": ">=4.3.8"
+  },
+  "author": {
+    "name": "Peter Kepes - webvibe.io",
+    "email": "dev@webvibe.io",
+    "url": "https://webvibe.io"
+  },
+  "maintainers": [
+    {
+      "name": "Peter Kepes - webvibe.io",
+      "email": "dev@webvibe.io",
+      "url": "https://webvibe.io"
+    }
+  ],
+  "engines": {
+    "node": ">=14.19.1 <=16.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT"
+}

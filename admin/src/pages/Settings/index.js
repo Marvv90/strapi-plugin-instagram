@@ -1,5 +1,4 @@
 // admin/src/pages/Settings/index.js
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Alert } from '@strapi/design-system/Alert';
 import { Box } from '@strapi/design-system/Box';
 import { Button } from '@strapi/design-system/Button';
@@ -204,39 +203,6 @@ const Settings = () => {
         <LoadingIndicatorPage />
       ) : (
         <ContentLayout>
-          <Box
-            background="neutral0"
-            hasRadius
-            shadow="filterShadow"
-            paddingTop={6}
-            paddingBottom={6}
-            paddingLeft={7}
-            paddingRight={7}
-            marginTop={3}
-          >
-            <Stack spacing={3}>
-              <Typography variant="beta">
-                Toss A Coin To Your Witcher
-              </Typography>
-              <Typography>
-                I spent weeks developing and refining this plugin. If you use it
-                and like it, invite me for a slice of pizza in exchange for my
-                work!
-              </Typography>
-              <Grid gap={6}>
-                <GridItem col={12} s={12}>
-                  <Button
-                    onClick={handleDonate}
-                    startIcon={<FontAwesomeIcon icon="pizza-slice" />}
-                    size="L"
-                    variant="primary"
-                  >
-                    Buy me a pizza
-                  </Button>
-                </GridItem>
-              </Grid>
-            </Stack>
-          </Box>
           <Box
             background="neutral0"
             hasRadius

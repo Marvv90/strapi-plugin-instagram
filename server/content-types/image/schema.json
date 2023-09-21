@@ -44,6 +44,13 @@
     "mediaType": {
       "type": "string"
     },
+    "originalUrl": {
+      "type": "string",
+      "maxLength": 9999,
+      "column": {
+        "type": "text"
+      }
+    },
     "thumbnailUrl": {
       "type": "text"
     },

@@ -31,6 +31,7 @@ const Settings = () => {
   const [instagram_app_secret, setInstagramAppSecret] = useState();
   const [instagram_allow_videos, setInstagramAllowVideos] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [isDownloadingToMediaLibary, setIsDownloadingToMediaLibary] = useState(false);
 
   useEffect(() => {
     checkAuthResponse();
@@ -84,6 +85,7 @@ const Settings = () => {
     setInstagramAppId(settings.instagram_app_id);
     setInstagramAppSecret(settings.instagram_app_secret);
     setInstagramAllowVideos(settings.instagram_allow_videos);
+    setIsDownloadingToMediaLibary(settings.isDownloadingToMediaLibary);
   }, [settings]);
 
   const handleImageDownload = async () => {
@@ -115,7 +117,8 @@ const Settings = () => {
       instagram_app_secret != '' &&
       instagram_app_id == settings.instagram_app_id &&
       instagram_app_secret == settings.instagram_app_secret &&
-      instagram_allow_videos == settings.instagram_allow_videos
+      instagram_allow_videos == settings.instagram_allow_videos &&
+      instagram_allow_download == settings.isDownloadingToMediaLibary
     );
   };
 
@@ -139,7 +142,8 @@ const Settings = () => {
       instagram_app_id: instagram_app_id,
       instagram_app_secret: instagram_app_secret,
       state: generateAuthState(),
-      instagram_allow_videos: instagram_allow_videos || false
+      instagram_allow_videos: instagram_allow_videos || false,
+      instagram_allow_download: instagram_allow_download || false,
     });
 
     setSettings(res.data);
@@ -236,6 +240,15 @@ const Settings = () => {
                   <Checkbox
                     value={instagram_allow_videos}
                     onChange={() => setInstagramAllowVideos(!instagram_allow_videos)}
+                    hint="This will allow you to save videos (including reels) with their thumbnails into the database."
+                  >
+                    Include videos in download
+                  </Checkbox>
+                </GridItem>
+                <GridItem col={12} s={12}>
+                  <Checkbox
+                    value={instagram_allow_download}
+                    onChange={() => setIsDownloadingToMediaLibary(!instagram_allow_download)}
                     hint="This will allow you to save videos (including reels) with their thumbnails into the database."
                   >
                     Include videos in download

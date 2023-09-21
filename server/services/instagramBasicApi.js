@@ -117,7 +117,9 @@ module.exports = ({ strapi }) => ({
       const imageExists = await this.isImageExists(image);
 
       if (!imageExists) {
-        const mediaItem = await fetchMedia.uploadToLibrary(image.id,image.url);
+        if (settings.instagram_allow_download) {
+          const mediaItem = await fetchMedia.uploadToLibrary(image.id,image.url);
+        }
 
         const entry = await strapi.db.query(dbImageName).create({
           data: {
@@ -127,8 +129,9 @@ module.exports = ({ strapi }) => ({
             permalink: image.permalink,
             mediaId: image.mediaId,
             mediaType: image.mediaType,
+            originalUrl: image.url,
             thumbnailUrl: image.thumbnailUrl,
-            media: mediaItem,
+            media: mediaItem ?? null,
             publishedAt: new Date()
           },
         });

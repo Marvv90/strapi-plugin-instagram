@@ -26,7 +26,7 @@ module.exports = {
 
   async uploadToLibrary(name,imageByteStreamURL) {
     let ext = imageByteStreamURL.split('?')[0].split('.');
-    const filePath = `${process.env.PWD}./tmp/${name}.${ext[ext.length-1]}`;
+    const filePath = `${process.env.PWD}/tmp/${name}.${ext[ext.length-1]}`;
     const { data } = await axios.get(imageByteStreamURL, {
       responseType: 'stream',
     });

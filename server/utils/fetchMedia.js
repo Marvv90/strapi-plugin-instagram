@@ -39,12 +39,28 @@ module.exports = {
     return image;
   },
 
+  async folder() {
+    let folder = await strapi.query('plugin::upload.folder').findOne({where: {name: 'instagram'}});
+
+    if ( !folder ) {
+      await strapi.plugins.upload.services.folder.create({name: 'instagram'});
+      folder = await strapi.query('plugin::upload.folder').findOne({where: {name: 'instagram'}});
+    }
+
+    return folder;
+  },
+
   async upload(filePath, saveAs) {
     const stats = await this.getFileDetails(filePath);
     const fileName = path.parse(filePath).base;
 
+    const folder = await this.folder();
+
     const res = await strapi.plugins.upload.services.upload.upload({
-      data: { path: saveAs },
+      data: { 
+        path: folder,
+        fileInfo: {folder: folder.id }
+      },
       files: {
         path: filePath,
         name: fileName,

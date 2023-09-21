@@ -3,6 +3,7 @@
 const instagramSettings = require('../utils/settings');
 const { getPluginSettings, setPluginSettings } = instagramSettings;
 const fetchInstagram = require('../utils/fetchInstagram');
+const fetchMedia = require('../utils/fetchMedia');
 const dateUtils = require('../utils/dateUtils');
 
 const album_fields = 'id,media_type,media_url,thumbnail_url,username,timestamp,permalink';
@@ -115,28 +116,20 @@ module.exports = ({ strapi }) => ({
     for (let image of images) {
       const imageExists = await this.isImageExists(image);
 
-      if (imageExists) {
-        // Update image url if already exists in order to prevent
-        // url to be invalid after a week
-        const entry = await strapi.db.query(dbImageName).update({
-          where: { instagramId: image.id },
-          data: {
-            originalUrl: image.url,
-            thumbnailUrl: image.thumbnailUrl
-          }
-        });
-      } else {
+      if (!imageExists) {
+        const mediaItem = await fetchMedia.uploadToLibrary(image.id,image.url);
+
         const entry = await strapi.db.query(dbImageName).create({
           data: {
             instagramId: image.id,
-            mediaId: image.mediaId,
-            originalUrl: image.url,
             timestamp: image.timestamp,
             caption: image.caption,
-            publishedAt: new Date(),
             permalink: image.permalink,
+            mediaId: image.mediaId,
+            mediaType: image.mediaType,
             thumbnailUrl: image.thumbnailUrl,
-            mediaType: image.mediaType
+            media: mediaItem,
+            publishedAt: new Date()
           },
         });
       }

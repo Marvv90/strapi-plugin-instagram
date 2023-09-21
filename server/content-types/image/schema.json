@@ -25,13 +25,6 @@
       "unique": true,
       "required": true
     },
-    "originalUrl": {
-      "type": "string",
-      "maxLength": 9999,
-      "column": {
-        "type": "text"
-      }
-    },
     "timestamp": {
       "type": "datetime"
     },
@@ -53,6 +46,9 @@
     },
     "thumbnailUrl": {
       "type": "text"
+    },
+    "media": {
+      "type": "media"
     }
   }
 }

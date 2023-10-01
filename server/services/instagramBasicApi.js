@@ -113,12 +113,16 @@ module.exports = ({ strapi }) => ({
   },
 
   async insertImagesToDatabase(images) {
+    const settings = await getPluginSettings();
+
     for (let image of images) {
       const imageExists = await this.isImageExists(image);
+      let mediaItem = null;
 
       if (!imageExists) {
+
         if (settings.instagram_allow_download) {
-          const mediaItem = await fetchMedia.uploadToLibrary(image.id,image.url);
+          mediaItem = await fetchMedia.uploadToLibrary(image.id,image.url);
         }
 
         const entry = await strapi.db.query(dbImageName).create({
@@ -131,7 +135,7 @@ module.exports = ({ strapi }) => ({
             mediaType: image.mediaType,
             originalUrl: image.url,
             thumbnailUrl: image.thumbnailUrl,
-            media: mediaItem ?? null,
+            media: mediaItem,
             publishedAt: new Date()
           },
         });

@@ -26,16 +26,21 @@ module.exports = {
 
   async uploadToLibrary(name,imageByteStreamURL) {
     let ext = imageByteStreamURL.split('?')[0].split('.');
+    console.log(ext)
     const filePath = `${process.env.PWD}/.tmp/${name}.${ext[ext.length-1]}`;
+    console.log(filePath)
     const { data } = await axios.get(imageByteStreamURL, {
       responseType: 'stream',
     });
+
+    console.log(data);
 
     const file = fs.createWriteStream(filePath);
     const finished = promisify(stream.finished);
     data.pipe(file);
     await finished(file);
     const image = await this.upload(filePath, 'uploads');
+    console.log(image)
     return image;
   },
 

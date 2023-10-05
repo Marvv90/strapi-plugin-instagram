@@ -60,7 +60,7 @@ module.exports = ({ strapi }) => ({
       return { download: false };
     }
 
-    const instagramMedia = await fetchInstagram.callInstagramGraph(
+    const instagramMedia = await fetchInstagram.callInstagramApiAllPages(
       '/me/media',
       {
         access_token: token,

@@ -3,7 +3,7 @@
 const axios = require("axios").default;
 
 module.exports = {
-  async fetchInstagramApi(url, params) {
+  async fetchInstagramApiAllPages(url, params) {
     let status, body, headers;
     let allData = [];
 
@@ -60,13 +60,17 @@ module.exports = {
     return {data: allData, status: status};
   },
 
-  async fetchInstagramApiForToken(url, params) {
-    let status;
+  async fetchInstagramApi(url, params) {
+    let status, body, headers;
 
-    let body = this.arrayToUrlParams(params);
-    let headers = {
+    if (method == "post") {
+      body = this.arrayToUrlParams(params);
+      headers = {
         "Content-Type": "application/x-www-form-urlencoded",
-        }
+      };
+    } else {
+      url = `${url}?${this.arrayToUrlParams(params)}`;
+    }
 
     const apiResult = await axios({
       url: url,
@@ -111,12 +115,17 @@ module.exports = {
 
   async callInstagramApi(uri, params) {
     const instagram_url = "https://api.instagram.com";
-    return this.fetchInstagramApiForToken(`${instagram_url}${uri}`, params);
+    return this.fetchInstagramApi(`${instagram_url}${uri}`, "post", params);
   },
 
   async callInstagramGraph(uri, params) {
     const instagram_url = "https://graph.instagram.com";
-    return this.fetchInstagramApi(`${instagram_url}${uri}`, params);
+    return this.fetchInstagramApi(`${instagram_url}${uri}`, "get", params);
+  },
+
+  async callInstagramApiAllPages(uri, params) {
+    const instagram_url = "https://graph.instagram.com";
+    return this.fetchInstagramApiAllPages(`${instagram_url}${uri}`, params)
   },
 
   arrayToUrlParams(hash) {

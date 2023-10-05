@@ -48,7 +48,7 @@ module.exports = ({ strapi }) => ({
       };
     }
 
-    const apiResult = await fetchInstagram.callInstagramApi("/access_token", {
+    const apiResult = await fetchInstagram.callInstagramGraph("/access_token", {
       grant_type: "ig_exchange_token",
       client_secret: settings.instagram_app_secret,
       access_token: settings.shortLivedAccessToken,
@@ -77,7 +77,7 @@ module.exports = ({ strapi }) => ({
       };
     }
 
-    const apiResult = await fetchInstagram.callInstagramApi(
+    const apiResult = await fetchInstagram.callInstagramGraph(
       "/refresh_access_token",
       {
         grant_type: "ig_refresh_token",

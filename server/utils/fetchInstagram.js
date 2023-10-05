@@ -60,7 +60,7 @@ module.exports = {
     return {data: allData, status: status};
   },
 
-  async fetchInstagramApi(url, params) {
+  async fetchInstagramApi(url, method, params) {
     let status, body, headers;
 
     if (method == "post") {
@@ -74,7 +74,7 @@ module.exports = {
 
     const apiResult = await axios({
       url: url,
-      method: 'post',
+      method: method,
       data: body,
       headers: headers,
     })

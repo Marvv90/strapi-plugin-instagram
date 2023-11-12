@@ -125,7 +125,8 @@ module.exports = ({ strapi }) => ({
         const entry = await strapi.db.query(dbImageName).update({
           where: { instagramId: image.id },
           data: {
-            originalUrl: image.url
+            originalUrl: image.url,
+            thumbnailUrl: image.thumbnailUrl
           }
         });
       } else {
